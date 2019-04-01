@@ -5,8 +5,8 @@
 将prometheus获取的监控信息（如springboot程序的性能指标）使用grafana展示。
 
 
-## Table of Contents
-* [依赖](#dependency)
+## 目录列表
+* [依赖](#依赖
 * [Download](#download)
 * [Compile](#compile)
   * [build binary](#build-binary)
@@ -22,7 +22,7 @@
 
 
 
-## Dependency
+## 依赖
 
 * [Springboot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
 * [Prometheus](https://prometheus.io/)
