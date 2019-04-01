@@ -6,7 +6,7 @@
 
 
 ## 目录列表
-* [依赖](#依赖
+* [依赖](#依赖)
 * [Download](#download)
 * [Compile](#compile)
   * [build binary](#build-binary)
