@@ -1,6 +1,6 @@
 # springboot-actuator-exporter
 
-English: Springboot Actuator Metrics and exports them via HTTP for Prometheus consumption
+Springboot Actuator Metrics and exports them via HTTP for Prometheus consumption
 
 Convert JSON format to prometheus format and via HTTP standard output.
 
