@@ -6,23 +6,38 @@
 
 
 ## 目录列表
-* [依赖](#依赖)
-* [Download](#download)
-* [Compile](#compile)
+* [依赖](#dependency)
+* [下载](#download)
+* [编译](#compile)
   * [build binary](#build-binary)
   * [build docker image](#build-docker-image)
-* [Run](#run)
+* [运行](#run)
   * [run binary](#run-binary)
   * [run docker image](#run-docker-image)
   * [run parameter](#run-parameter)
-* [Environment variables](#environment-variables)
-* [Metrics](#metrics)
+* [环境变量](#environment-variables)
+* [指标](#metrics)
   * [springboot_monitor_performance](#springboot_monitor_performance)
 * [Grafana](#grafana)
 
 
 
-## 依赖
+## Depandncy
+
+```text
+需要springboot开启actuator监控，通过HTTP输出JSON格式信息
+E.g: curl http://localhost/management/metrics (springboot actuator metrics)
+{
+    "mem": 458972,
+    "processors": 24,
+    "uptime": 16774475011,
+    "systemload.average": 0.87,
+    "heap.used": 184541,
+    "threads": 39,
+    ...
+} 
+
+```
 
 * [Springboot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
 * [Prometheus](https://prometheus.io/)
@@ -31,11 +46,14 @@
 
 ## Download
 
-Binary can be downloaded from [Releases](https://github.com/liyinda/springboot-actuator-exporter/releases) page.
+二进制程序下载地址如 [Releases](https://github.com/liyinda/springboot-actuator-exporter/releases) page.
 
 ## Compile
 
 ### build binary
+```text
+docker方式作者还未添加^-^
+```
 
 ``` shell
 go build springboot_actuatorMetrics_exporter.go
@@ -57,8 +75,10 @@ docker run  -ti image  bin/springboot-actuator-exporter
 
 ### run parameter
 ```shell
+程序运行参数
 -springboot.scrape_uri string
     URI to stringboot metrics stub status page (default "http://localhost/management/metrics")
+    获取stringboot actuator监控信息，JSON格式
     E.g: curl http://localhost/management/metrics (springboot actuator metrics)
     {
         "mem": 458972,
@@ -71,24 +91,27 @@ docker run  -ti image  bin/springboot-actuator-exporter
     } 
 
 -springboot.service string
+    springboot服务名称
     springboot services (default "service")
 
 -telemetry.address string
+    启用端口号
     Address on which to expose metrics. (default ":9933")
 
 -telemetry.endpoint string
+    exporter endpoint位置
     Path under which to expose metrics. (default "/metrics")
 
 ```
 
 ## Environment variables
 
-This image is configurable using different env variables
+环境变量（无）
 
 ## Metrics
 
 ### springboot_monitor_performance
-Documents about exposed Prometheus metrics.
+转换后的prometheus exporter metrics信息如下：
 
 ``` 
 # TYPE springboot_actuator_exporter_build_info gauge
