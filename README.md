@@ -2,11 +2,13 @@
 
 English: Springboot Actuator Metrics and exports them via HTTP for Prometheus consumption
 
-Convert JSON format to prometheus format and via HTTP standard output.
+    Convert JSON format to prometheus format and via HTTP standard output.
 
-中文: 通过springboot actuator metrics获取的json格式信息转换为Prometheus exporter metrics格式
+中文: 通过springboot actuator metrics获取的json格式信息
 
-中文README.md (https://github.com/liyinda/springboot-actuator-exporter/README_CN.md)
+    转换为Prometheus exporter metrics格式
+
+* [中文README] (https://github.com/liyinda/springboot-actuator-exporter/README_CN.md)
 
 ## Table of Contents
 * [Dependency](#dependency)
@@ -17,31 +19,31 @@ Convert JSON format to prometheus format and via HTTP standard output.
 * [Run](#run)
   * [run binary](#run-binary)
   * [run docker image](#run-docker-image)
+  * [run parameter](#run-parameter)
 * [Environment variables](#environment-variables)
 * [Metrics](#metrics)
-  * [Server main](#server-main)
-  * [Server zones](#server-zones)
-  * [Filter zones](#filter-zones)
+  * [springboot_monitor_performance](#springboot_monitor_performance)
+* [Grafana](#grafana)
 
 
 
 ## Dependency
 
-* [lsof](http://www.linuxfromscratch.org/blfs/view/svn/general/lsof.html)
+* [Springboot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
 * [Prometheus](https://prometheus.io/)
-* [Golang 1.9.4](https://golang.org/)
+* [Golang 1.11](https://golang.org/)
 
 
 ## Download
 
-Binary can be downloaded from [Releases](https://github.com/liyinda/secuity_exporter/releases) page.
+Binary can be downloaded from [Releases](https://github.com/liyinda/springboot-actuator-exporter/releases) page.
 
 ## Compile
 
 ### build binary
 
 ``` shell
-go build security_exporter.go
+go build springboot_actuatorMetrics_exporter.go
 ```
 ### build docker image
 ``` shell
@@ -50,12 +52,38 @@ make docker
 
 ## Docker Hub Image
 ``` shell
-DOCKER 部署方式作者会尽快补充 
-docker pull 空:latest
+DOCKER The deployment method author will add as soon as possible 
+docker pull null:latest
 ```
 ### run docker
 ```
-docker run  -ti 镜像地址 bin/security_exporter
+docker run  -ti image  bin/springboot-actuator-exporter
+```
+
+### run parameter
+```shell
+-springboot.scrape_uri string
+    URI to stringboot metrics stub status page (default "http://localhost/management/metrics")
+    E.g: curl http://localhost/management/metrics (springboot actuator metrics)
+    {
+        "mem": 458972,
+        "processors": 24,
+        "uptime": 16774475011,
+        "systemload.average": 0.87,
+        "heap.used": 184541,
+        "threads": 39,
+        ...
+    } 
+
+-springboot.service string
+    springboot services (default "service")
+
+-telemetry.address string
+    Address on which to expose metrics. (default ":9933")
+
+-telemetry.endpoint string
+    Path under which to expose metrics. (default "/metrics")
+
 ```
 
 ## Environment variables
@@ -64,21 +92,25 @@ This image is configurable using different env variables
 
 ## Metrics
 
+### springboot_monitor_performance
 Documents about exposed Prometheus metrics.
 
 ``` 
-# HELP fail_password_total Number of Fail Password in /var/log/secure.
-# TYPE fail_password_total counter
-fail_password_total{host="$hostname",zone="datacenter"} 3
-# HELP file_change_total Number of Change in /etc.
-# TYPE file_change_total counter
-file_change_total{host="$hostname",zone="datacenter"} 21
-# HELP reverse_shell_total Number of Reverse Shell.
-# TYPE reverse_shell_total counter
-reverse_shell_total{host="$hostname",zone="datacenter"} 0
+# TYPE springboot_actuator_exporter_build_info gauge
+springboot_actuator_exporter_build_info{branch="",goversion="go1.11",revision="",version=""} 1
+# HELP springboot_monitor_info springboot info
+# TYPE springboot_monitor_info gauge
+springboot_monitor_info{Processors="processors"} 16
+# HELP springboot_monitor_performance springboot performance
+# TYPE springboot_monitor_performance gauge
+springboot_monitor_performance{hostname="$hostname",service="$service",sys="heap"} 250592
+springboot_monitor_performance{hostname="$hostname",service="$service",sys="memory"} 1.11207e+06
+springboot_monitor_performance{hostname="$hostname",service="$service",sys="systemload"} 0.06
+springboot_monitor_performance{hostname="$hostname",service="$service",sys="threads"} 38
+springboot_monitor_performance{hostname="$hostname",service="$service",sys="uptime"} 9.252913831e+09
 
 ```
 
 ### Grafana
 
-![image](https://github.com/liyinda/security_exporter/blob/master/jpg/grafana.jpg)
+![image](https://github.com/liyinda/springboot-actuator-exporter/blob/master/jpg/grafana.jpg)
