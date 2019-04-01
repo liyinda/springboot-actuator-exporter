@@ -22,7 +22,7 @@
 
 
 
-## Depandncy
+## Dependency
 
 ```text
 需要springboot开启actuator监控，通过HTTP输出JSON格式信息
