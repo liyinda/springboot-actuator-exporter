@@ -4,9 +4,7 @@ English: Springboot Actuator Metrics and exports them via HTTP for Prometheus co
 
 Convert JSON format to prometheus format and via HTTP standard output.
 
-中文: 通过springboot actuator metrics获取的json格式信息
-
-转换为Prometheus exporter metrics格式
+中文: 通过springboot actuator metrics获取的json格式信息转换为Prometheus exporter metrics格式
 
 * [中文README](https://github.com/liyinda/springboot-actuator-exporter/blob/master/README_CN.md)
 
