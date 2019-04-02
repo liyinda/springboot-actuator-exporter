@@ -157,10 +157,10 @@ func fetchHTTP(uri string, timeout time.Duration) func() (io.ReadCloser, error) 
 
 var (
 	showVersion        = flag.Bool("version", false, "Print version information.")
-	listenAddress      = flag.String("telemetry.address", ":9913", "Address on which to expose metrics.")
+	listenAddress      = flag.String("telemetry.address", ":9933", "Address on which to expose metrics.")
 	metricsEndpoint    = flag.String("telemetry.endpoint", "/metrics", "Path under which to expose metrics.")
 	metricsNamespace   = flag.String("metrics.namespace", "springboot", "Prometheus metrics namespace.")
-	springbootScrapeURI     = flag.String("springboot.scrape_uri", "http://localhost/status", "URI to stringboot metrics stub status page")
+	springbootScrapeURI     = flag.String("springboot.scrape_uri", "http://localhost/management/metrics", "URI to stringboot metrics stub status page")
 	springbootService     = flag.String("springboot.service", "service", "springboot services")
 	insecure           = flag.Bool("insecure", true, "Ignore server certificate if using https")
 	springbootScrapeTimeout = flag.Int("springboot.scrape_timeout", 2, "The number of seconds to wait for an HTTP response from the stringboot.scrape_uri")
